@@ -1,0 +1,27 @@
+# Name of the workflow
+name: Build and Run C Analyzer
+
+# Run this workflow on every push to the main branch
+on:
+  push:
+    branches: [ "main" ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    # Use a standard Ubuntu Linux virtual machine to run the job
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checks-out your repository's code into the runner
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Compiles the C code using the gcc compiler
+      - name: Compile C Code
+        run: gcc front.c -o analyzer
+
+      # 3. Runs the compiled program
+      - name: Run C Analyzer
+        run: ./analyzer
